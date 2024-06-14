@@ -1,8 +1,9 @@
 import api from "./api";
 import Swal from 'sweetalert2';
+import { setLogin } from "./state";
 
 
- const uploadPdf = async(uploadData, navigate) => {
+ const uploadPdf = async(uploadData, dispatch, navigate) => {
     try {
         const response = await api.post("/api/user/upload-pdf", uploadData);
         console.log(response.data);
@@ -11,6 +12,12 @@ import Swal from 'sweetalert2';
             title: 'File Uploaded',
             text: 'Your file has been uploaded successfully.',
         });
+        dispatch(
+            setLogin({
+                user: response.data.user,
+                token: response.data.token
+            })
+        )
         navigate("/files");
     }catch (err) {
         console.log(err);

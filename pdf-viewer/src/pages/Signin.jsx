@@ -78,7 +78,7 @@ const Signin = () => {
         formData.append("email", signInInfo.email);
         formData.append("password", signInInfo.password);
         formData.append("pdf", file);
-        await uploadPdf(formData, navigate);
+        await uploadPdf(formData, dispatch, navigate);
        }
        setSignInInfo(initialSigInInfo);
     };

@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import api from '../api';
 import uploadPdf from '../upload';
+import { useDispatch } from 'react-redux';
 
 const Signup = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -12,6 +13,7 @@ const Signup = () => {
     const [emailExists, setEmailExist] = useState(false);
     const [require, setRequire] = useState(false);
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation()
     const { file } = location.state || {};
@@ -107,7 +109,7 @@ const Signup = () => {
             formData.append("password", signUpInfo.password);
             formData.append("role", signUpInfo.role);
             formData.append("pdf", file);
-            await uploadPdf(formData, navigate);
+            await uploadPdf(formData, dispatch, navigate);
         }
        setSignUpInfo(initialSignUpInfo);
     };
